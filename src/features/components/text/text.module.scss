@@ -1,0 +1,35 @@
+@use 'src/styles/fonts.scss';
+@use 'src/styles/colors.scss';
+
+.default {
+  font-family: fonts.$gilroy;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  color: colors.$purple700;
+  letter-spacing: 0.4px;
+  margin: 0;
+}
+
+.bold-spans-only {
+  font-family: fonts.$gilroy;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  color: colors.$purple700;
+  letter-spacing: 0.4px;
+  margin: 0;
+
+  span {
+    font-family: fonts.$gilroyBold;
+    font-weight: 400;
+  }
+}
+
+.bold-large {
+  font-family: fonts.$gilroyBold;
+  font-weight: 400;
+  font-size: 18px;
+  letter-spacing: 0.4px;
+  margin: 0;
+}

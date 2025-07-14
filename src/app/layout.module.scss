@@ -1,0 +1,10 @@
+@use 'src/styles/colors.scss';
+
+.rootLayout {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 962px;
+  height: 100%;
+  padding: 0 164px;
+}

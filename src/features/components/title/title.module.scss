@@ -1,0 +1,11 @@
+@use 'src/styles/fonts.scss';
+@use 'src/styles/colors.scss';
+
+.title {
+  margin: 0;
+  font-family: fonts.$gilroyBold;
+  font-weight: 400;
+  font-size: 96px;
+  line-height: 119px;
+  color: colors.$purple700;
+}

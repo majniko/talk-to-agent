@@ -1,0 +1,22 @@
+@use 'src/styles/fonts.scss';
+@use 'src/styles/colors.scss';
+
+.styledLink {
+  padding: 2px;
+  border-radius: 4px;
+
+  &:hover {
+    background-color: colors.$purple200;
+  }
+}
+
+.link {
+  text-decoration: none;
+
+  font-family: fonts.$gilroyBold;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: 0.4px;
+  color: colors.$purple700;
+}
