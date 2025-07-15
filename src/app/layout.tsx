@@ -1,6 +1,9 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import { Menu } from '@components/menu';
+
+import { Menu } from '@modules/menu';
+
+import { StoreProvider } from './StoreProvider';
 
 import './globals.scss';
 import classes from './layout.module.scss';
@@ -18,10 +21,12 @@ const RootLayout = ({ children }: RootLayoutProps) => {
   return (
     <html lang="en">
       <body>
-        <div className={classes.rootLayout}>
-          <Menu />
-          {children}
-        </div>
+        <StoreProvider>
+          <div className={classes.rootLayout}>
+            <Menu />
+            {children}
+          </div>
+        </StoreProvider>
       </body>
     </html>
   );

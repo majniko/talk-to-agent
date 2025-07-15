@@ -6,6 +6,10 @@ export const LOCALIZATION = {
       organization: 'Organization',
       products: 'Products',
       help: 'Help',
+      callAgent: 'Call Jessica',
+      callAgentModal: {
+        title: 'Call Jessica',
+      },
     },
     home: {
       title: `Solving problems.<br/>Thousands at a time.`,

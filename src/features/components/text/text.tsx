@@ -1,7 +1,7 @@
 import classes from './text.module.scss';
 
 export type TextProps = {
-  variant?: 'default' | 'bold-spans-only' | 'bold-large';
+  variant?: 'default' | 'bold-spans-only' | 'bold-large' | 'button-text';
   text: string;
 };
 

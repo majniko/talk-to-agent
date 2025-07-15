@@ -5,9 +5,11 @@ import clsx from 'clsx';
 import { usePathname } from 'next/navigation';
 import { LOCALIZATION } from 'localization';
 
-import { StyledLink } from '@components/menu/styled-link/styled-link';
+import { StyledLink } from './styled-link';
+import { CallAgentButton } from './call-agent-button';
 
 import classes from './menu.module.scss';
+import { CallAgentModal } from '@modules/call-agent-modal/call-agent-modal';
 
 export const Menu = () => {
   const pathname = usePathname();
@@ -54,6 +56,8 @@ export const Menu = () => {
           <StyledLink href={'/help'} text={LOCALIZATION.en.menu.help} />
         </div>
       </nav>
+      <CallAgentButton />
+      <CallAgentModal />
     </div>
   );
 };

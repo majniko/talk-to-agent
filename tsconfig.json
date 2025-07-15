@@ -24,6 +24,7 @@
       "@pages/*": ["./src/features/pages/*"],
       "@components/*": ["./src/features/components/*"],
       "@utilities/*": ["./src/features/utilities/*"],
+      "@modules/*": ["./src/features/modules/*"],
       "@redux/*": ["./src/lib/redux/*"],
       "localization": ["./src/features/localization/localization"]
     }
