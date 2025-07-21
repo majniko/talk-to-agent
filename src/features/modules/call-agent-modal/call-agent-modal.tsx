@@ -1,39 +1,25 @@
 'use client';
 
-import { useCallback } from 'react';
-
 import { Modal } from '@components/modal';
-import { useAppDispatch } from '@redux/hooks';
-
-import { useCallAgentModalSelector } from '@redux/features/call-agent-modal/hooks';
-import { callAgentModalActions } from '@redux/features/call-agent-modal/slice';
-
-import classes from './call-agent-modal.module.scss';
 import { Text } from '@components/text';
-import { LOCALIZATION } from 'localization';
 import { Button } from '@components/button';
-import { PhoneCallIcon, PhoneIcon } from 'lucide-react';
-import { useWebsocket } from '@utilities/useWebsocket/use-websocket';
-import dynamic from 'next/dynamic';
-
-const AudioRecorderClientOnly = dynamic(
-  () =>
-    import('@components/audio-recorder-wrapper').then(
-      (mod) => mod.AudioRecorderWrapper,
-    ),
-  { ssr: false },
-);
+import { PhoneCallIcon } from 'lucide-react';
+import { LOCALIZATION } from 'localization';
+import { useCallAgentModal } from './use-call-agent-modal';
+import { useCallAgentModalSelector } from '@redux/features/call-agent-modal/hooks';
+import classes from './call-agent-modal.module.scss';
+import clsx from 'clsx';
+import { AudioVisualizer } from '@components/audio-visualizer';
 
 export const CallAgentModal = () => {
-  const dispatch = useAppDispatch();
   const isModalOpen = useCallAgentModalSelector('isModalOpen');
-  const { handleRecordingComplete } = useWebsocket();
-
-  const onClose = useCallback(() => {
-    dispatch(callAgentModalActions.toggleModal());
-  }, [dispatch]);
-
-  const onCallButtonClick = () => {};
+  const {
+    isCallActive,
+    isRecording,
+    handleCallButtonClick,
+    onClose,
+    mediaRecorder,
+  } = useCallAgentModal();
 
   return (
     <Modal isOpen={isModalOpen} onClose={onClose}>
@@ -44,14 +30,22 @@ export const CallAgentModal = () => {
             variant={'bold-large'}
           />
         </div>
-        <Button onClick={onCallButtonClick} className={classes.callButton}>
+
+        <div className={classes.visualizerWrapper}>
+          {/* Conditionally render the Visualizer for the LIVE stream */}
+          {isRecording && mediaRecorder?.stream && (
+            <AudioVisualizer stream={mediaRecorder.stream} />
+          )}
+        </div>
+
+        <Button
+          onClick={handleCallButtonClick}
+          className={clsx(classes.callButton, {
+            [classes.callActive]: isCallActive,
+          })}
+        >
           <PhoneCallIcon className={classes.callIcon} />
         </Button>
-        <AudioRecorderClientOnly
-          onRecordingComplete={handleRecordingComplete}
-          showVisualizer={true}
-          downloadFileExtension="wav"
-        />
       </div>
     </Modal>
   );

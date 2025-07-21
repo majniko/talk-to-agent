@@ -1,42 +1,38 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+// Use 'type' for all definitions, no interfaces
 export type AudioMessage = {
   id: string;
-  blobUrl: string; // The local URL for the audio blob
-  type: 'sent' | 'received';
-  timestamp: string;
+  blobUrl: string; // <-- Store the URL string, not the Blob object
+  sender: 'user' | 'agent';
 };
 
 export type AudioMessagesState = {
-  messages: AudioMessage[];
+  history: AudioMessage[];
+  isCallActive: boolean;
 };
 
 export const audioMessagesInitialState: AudioMessagesState = {
-  messages: [],
+  history: [],
+  isCallActive: false,
 };
 
-export const audioMessagesSlice = createSlice({
+const audioMessagesSlice = createSlice({
   name: 'audioMessages',
   initialState: audioMessagesInitialState,
   reducers: {
-    addAudioMessage: (
-      state,
-      action: PayloadAction<Omit<AudioMessage, 'id' | 'timestamp'>>,
-    ) => {
-      const newMessage: AudioMessage = {
-        id: `audio_${new Date().getTime()}_${Math.random()}`, // Simple unique ID
-        timestamp: new Date().toISOString(),
+    // The payload now expects an object with a blobUrl
+    addMessage: (state, action: PayloadAction<Omit<AudioMessage, 'id'>>) => {
+      state.history.push({
         ...action.payload,
-      };
-      state.messages.push(newMessage);
+        id: new Date().toISOString(),
+      });
     },
-    clearAudioMessages: (state) => {
-      state.messages.forEach((message) => URL.revokeObjectURL(message.blobUrl));
-      state.messages = [];
+    setCallActive: (state, action: PayloadAction<boolean>) => {
+      state.isCallActive = action.payload;
     },
   },
 });
 
 export const audioMessagesActions = audioMessagesSlice.actions;
-
 export default audioMessagesSlice;

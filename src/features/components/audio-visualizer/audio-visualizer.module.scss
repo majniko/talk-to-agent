@@ -1,0 +1,19 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.container {
+  flex-grow: 1;
+  min-height: 60px;
+  min-width: 60px;
+}
+
+.playButton {
+  padding: 8px;
+  height: auto;
+  min-width: auto;
+  border-radius: 50%;
+}

@@ -7,9 +7,8 @@ import callAgentModalSlice, {
   callAgentModalInitialState,
   CallAgentModalState,
 } from '@redux/features/call-agent-modal/slice';
-import {
+import audioMessagesSlice, {
   audioMessagesInitialState,
-  audioMessagesSlice,
   AudioMessagesState,
 } from '@redux/features/audio-messages/slice';
 
