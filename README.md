@@ -7,7 +7,7 @@ This is a web application that allows users to have a real-time voice conversati
 * **Real-time Voice Chat**: Engage in a seamless, real-time conversation with a backend agent using WebSockets.
 * **Voice Activity Detection (VAD)**: The app intelligently detects when you've finished speaking and automatically sends your message.
 * **Live Audio Visualization**: See your voice visualized in real-time as you speak.
-* **Audio Replay & Visualization**: The agent's responses are displayed as a waveform using `wavesurfer.js`, allowing you to see and replay the audio.
+* **Audio Replay & Visualization**: Real-time waveform is displayed during recording using `wavesurfer.js`, giving user valuable feedback.
 * **State Management**: Built with a scalable Redux Toolkit setup for predictable state management.
 * **Modern Frontend**: A responsive and clean interface built with Next.js and React.
 
