@@ -56,7 +56,6 @@ export const useCallAgentModal = () => {
       if (isSilent) {
         if (!silenceTimerRef.current) {
           silenceTimerRef.current = setTimeout(() => {
-            console.log('Silence timeout');
             stopRecording();
           }, VAD_SILENCE_TIMEOUT_MS);
         }
@@ -90,10 +89,9 @@ export const useCallAgentModal = () => {
       const blobUrl = URL.createObjectURL(lastMessage.data);
       dispatch(audioMessagesActions.addMessage({ blobUrl, sender: 'agent' }));
       const audio = new Audio(blobUrl);
-      audio.play();
-      audio.onended = () => {
+      audio.play().then(() => {
         if (isCallActive) startRecording();
-      };
+      });
     }
   }, [lastMessage]);
 
