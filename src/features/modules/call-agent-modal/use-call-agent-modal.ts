@@ -70,8 +70,9 @@ export const useCallAgentModal = () => {
 
     return () => {
       cancelAnimationFrame(animationFrameId);
-      audioContext.close();
-      if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
+      audioContext.close().then(() => {
+        if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
+      });
     };
   }, [isRecording, mediaRecorder, stopRecording]);
 
