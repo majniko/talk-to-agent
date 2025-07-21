@@ -1,3 +1,5 @@
+'use client';
+
 import { useCallback } from 'react';
 
 import { Modal } from '@components/modal';
@@ -11,8 +13,16 @@ import { Text } from '@components/text';
 import { LOCALIZATION } from 'localization';
 import { Button } from '@components/button';
 import { PhoneCallIcon, PhoneIcon } from 'lucide-react';
-import { AudioRecorder } from 'react-audio-voice-recorder';
 import { useWebsocket } from '@utilities/useWebsocket/use-websocket';
+import dynamic from 'next/dynamic';
+
+const AudioRecorderClientOnly = dynamic(
+  () =>
+    import('@components/audio-recorder-wrapper').then(
+      (mod) => mod.AudioRecorderWrapper,
+    ),
+  { ssr: false },
+);
 
 export const CallAgentModal = () => {
   const dispatch = useAppDispatch();
@@ -35,12 +45,12 @@ export const CallAgentModal = () => {
           />
         </div>
         <Button onClick={onCallButtonClick} className={classes.callButton}>
-          <PhoneCallIcon />
+          <PhoneCallIcon className={classes.callIcon} />
         </Button>
-        <AudioRecorder
+        <AudioRecorderClientOnly
           onRecordingComplete={handleRecordingComplete}
           showVisualizer={true}
-          downloadFileExtension="wav" // Request WAV format
+          downloadFileExtension="wav"
         />
       </div>
     </Modal>
