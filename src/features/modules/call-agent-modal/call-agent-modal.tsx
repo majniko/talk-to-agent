@@ -33,9 +33,6 @@ export const CallAgentModal = () => {
 
         <div className={classes.visualizerWrapper}>
           {/* Conditionally render the Visualizer for the LIVE stream */}
-          {isRecording && mediaRecorder?.stream && (
-            <AudioVisualizer stream={mediaRecorder.stream} />
-          )}
         </div>
 
         <Button

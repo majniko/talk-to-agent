@@ -1,54 +1,52 @@
 'use client';
 
-import { useRef, useEffect, useState, useCallback } from 'react';
+import { useRef, useEffect } from 'react';
 import WaveSurfer from 'wavesurfer.js';
-import { useWavesurfer } from '@wavesurfer/react';
-import { PlayIcon, PauseIcon } from 'lucide-react';
+import RecordPlugin from 'wavesurfer.js/dist/plugins/record.esm.js';
 import classes from './audio-visualizer.module.scss';
-import { Button } from '@components/button';
 
-type VisualizerProps = {
-  stream?: MediaStream;
-  url?: string;
-};
-
-export const AudioVisualizer = ({ stream, url }: VisualizerProps) => {
+export const AudioVisualizer = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const wavesurferRef = useRef<WaveSurfer | null>(null);
+  const recordPluginRef = useRef<RecordPlugin | null>(null);
 
-  const { wavesurfer, isPlaying } = useWavesurfer({
-    container: containerRef,
-    height: 60,
-    waveColor: '#ff4500',
-    progressColor: '#cc3700',
-    barWidth: 2,
-    barGap: 1,
-    url: url, // The hook can take a URL directly
-  });
-
-  const onPlayPause = () => {
-    wavesurfer && wavesurfer.playPause();
-  };
-
-  // This effect handles loading the live stream
   useEffect(() => {
-    if (stream && wavesurfer) {
-      const audioEl = document.createElement('audio');
-      audioEl.srcObject = stream;
-      audioEl.muted = true;
-      // Use the loadElement method for HTML elements
-      wavesurfer.setMediaElement(audioEl);
-    }
-  }, [stream, wavesurfer]);
+    if (containerRef.current && !wavesurferRef.current) {
+      const wavesurfer = WaveSurfer.create({
+        container: containerRef.current,
+        height: 60,
+        waveColor: '#ff4500',
+        progressColor: '#cc3700',
+        barWidth: 2,
+        barGap: 1,
+      });
 
-  return (
-    <div className={classes.wrapper}>
-      {/* Show a play/pause button only when playing back a recorded URL */}
-      {url && (
-        <Button onClick={onPlayPause} className={classes.playButton}>
-          {isPlaying ? <PauseIcon size={18} /> : <PlayIcon size={18} />}
-        </Button>
-      )}
-      <div ref={containerRef} className={classes.container} />
-    </div>
-  );
+      const record = wavesurfer.registerPlugin(RecordPlugin.create());
+      recordPluginRef.current = record;
+
+      record.on('record-start', () => {
+        console.log('Recording started');
+      });
+
+      record.on('record-end', (blob) => {
+        console.log('Recording ended, blob:', blob);
+      });
+
+      record.startRecording();
+
+      wavesurferRef.current = wavesurfer;
+    }
+
+    return () => {
+      if (recordPluginRef.current) {
+        recordPluginRef.current.stopRecording();
+      }
+      if (wavesurferRef.current) {
+        wavesurferRef.current.destroy();
+        wavesurferRef.current = null;
+      }
+    };
+  }, []);
+
+  return <div ref={containerRef} className={classes.container} />;
 };

@@ -12,7 +12,7 @@ export type ModalProps = {
 };
 
 export const Modal = ({ isOpen, onClose, children }: ModalProps) => {
-  if (isOpen) return null;
+  if (!isOpen) return null;
 
   return (
     <div

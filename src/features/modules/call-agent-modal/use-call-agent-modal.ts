@@ -56,6 +56,7 @@ export const useCallAgentModal = () => {
       if (isSilent) {
         if (!silenceTimerRef.current) {
           silenceTimerRef.current = setTimeout(() => {
+            console.log('Silence timeout');
             stopRecording();
           }, VAD_SILENCE_TIMEOUT_MS);
         }
@@ -82,7 +83,7 @@ export const useCallAgentModal = () => {
       dispatch(audioMessagesActions.addMessage({ blobUrl, sender: 'user' }));
       sendMessage(recordingBlob);
     }
-  }, [recordingBlob, dispatch, sendMessage]);
+  }, [recordingBlob, sendMessage]);
 
   useEffect(() => {
     if (lastMessage?.data instanceof Blob) {
@@ -94,7 +95,7 @@ export const useCallAgentModal = () => {
         if (isCallActive) startRecording();
       };
     }
-  }, [lastMessage, isCallActive, dispatch, startRecording]);
+  }, [lastMessage]);
 
   const onClose = useCallback(() => {
     if (isCallActive) {
