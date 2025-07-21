@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Talk to Agent 🗣️
 
-## Getting Started
+This is a web application that allows users to have a real-time voice conversation with a virtual agent. It captures microphone input, sends it to a backend for processing, and plays back the agent's audio response, complete with dynamic audio visualizations.
 
-First, run the development server:
+## ✨ Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+* **Real-time Voice Chat**: Engage in a seamless, real-time conversation with a backend agent using WebSockets.
+* **Voice Activity Detection (VAD)**: The app intelligently detects when you've finished speaking and automatically sends your message.
+* **Live Audio Visualization**: See your voice visualized in real-time as you speak.
+* **Audio Replay & Visualization**: The agent's responses are displayed as a waveform using `wavesurfer.js`, allowing you to see and replay the audio.
+* **State Management**: Built with a scalable Redux Toolkit setup for predictable state management.
+* **Modern Frontend**: A responsive and clean interface built with Next.js and React.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+* **Framework**: Next.js
+* **Library**: React
+* **State Management**: Redux Toolkit
+* **Audio Visualization**: `wavesurfer.js`
+* **Communication**: WebSocket (`react-use-websocket`)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 Getting Started
 
-## Learn More
+If you do not want to install and run this app yourself, just visit https://talk-to-agent.vercel.app. (Still requires backend running at `ws://localhost:8080`)
 
-To learn more about Next.js, take a look at the following resources:
+### Prerequisites
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+* Node.js (v18 or later recommended)
+* npm
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Installation
 
-## Deploy on Vercel
+1.  Clone the repository to your local machine.
+    ```bash
+    git clone https://github.com/majniko/talk-to-agent.git
+    ```
+2.  Navigate into the project directory.
+    ```bash
+    cd talk-to-agent
+    ```
+3.  Install the required dependencies.
+    ```bash
+    npm install
+    ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Running the Application
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1.  Start the development server.
+    ```bash
+    next dev
+    ```
+2.  Open your browser and navigate to `http://localhost:3000`.
+3.  **Note**: This frontend application requires a running WebSocket backend server at `ws://localhost:8080` to function correctly.
