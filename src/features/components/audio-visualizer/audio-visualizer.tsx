@@ -5,7 +5,15 @@ import WaveSurfer from 'wavesurfer.js';
 import RecordPlugin from 'wavesurfer.js/dist/plugins/record.esm.js';
 import classes from './audio-visualizer.module.scss';
 
-export const AudioVisualizer = ({ stream }: { stream?: MediaStream }) => {
+export type AudioVisualizerProps = {
+  stream?: MediaStream;
+  isMessagePlaying?: boolean;
+};
+
+export const AudioVisualizer = ({
+  stream,
+  isMessagePlaying,
+}: AudioVisualizerProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const wavesurferRef = useRef<WaveSurfer | null>(null);
   const recordPluginRef = useRef<RecordPlugin | null>(null);
@@ -14,10 +22,10 @@ export const AudioVisualizer = ({ stream }: { stream?: MediaStream }) => {
     if (containerRef.current && !wavesurferRef.current) {
       const wavesurfer = WaveSurfer.create({
         container: containerRef.current,
-        height: 60,
+        height: 75,
         width: 100,
-        waveColor: '#ff4500',
-        progressColor: '#cc3700',
+        waveColor: '#8b268d',
+        progressColor: '#8b268d',
         barWidth: 2,
         barGap: 1,
       });
@@ -38,5 +46,19 @@ export const AudioVisualizer = ({ stream }: { stream?: MediaStream }) => {
     };
   }, [stream, containerRef, wavesurferRef, recordPluginRef]);
 
-  return <div ref={containerRef} className={classes.container} />;
+  return (
+    <div>
+      {isMessagePlaying ? (
+        <div className={classes.loader}>
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+        </div>
+      ) : (
+        <div ref={containerRef} className={classes.container} />
+      )}
+    </div>
+  );
 };

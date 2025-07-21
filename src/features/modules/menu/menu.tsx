@@ -5,11 +5,12 @@ import clsx from 'clsx';
 import { usePathname } from 'next/navigation';
 import { LOCALIZATION } from 'localization';
 
+import { CallAgentModal } from '@modules/call-agent-modal';
+
 import { StyledLink } from './styled-link';
 import { CallAgentButton } from './call-agent-button';
 
 import classes from './menu.module.scss';
-import { CallAgentModal } from '@modules/call-agent-modal/call-agent-modal';
 
 export const Menu = () => {
   const pathname = usePathname();

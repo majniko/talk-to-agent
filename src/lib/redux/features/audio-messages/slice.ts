@@ -1,27 +1,27 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-// Use 'type' for all definitions, no interfaces
 export type AudioMessage = {
   id: string;
-  blobUrl: string; // <-- Store the URL string, not the Blob object
+  blobUrl: string;
   sender: 'user' | 'agent';
 };
 
 export type AudioMessagesState = {
   history: AudioMessage[];
   isCallActive: boolean;
+  isMessagePlaying: boolean;
 };
 
 export const audioMessagesInitialState: AudioMessagesState = {
   history: [],
   isCallActive: false,
+  isMessagePlaying: false,
 };
 
 const audioMessagesSlice = createSlice({
   name: 'audioMessages',
   initialState: audioMessagesInitialState,
   reducers: {
-    // The payload now expects an object with a blobUrl
     addMessage: (state, action: PayloadAction<Omit<AudioMessage, 'id'>>) => {
       state.history.push({
         ...action.payload,
@@ -30,6 +30,9 @@ const audioMessagesSlice = createSlice({
     },
     setCallActive: (state, action: PayloadAction<boolean>) => {
       state.isCallActive = action.payload;
+    },
+    setIsMessagePlaying: (state, action: PayloadAction<boolean>) => {
+      state.isMessagePlaying = action.payload;
     },
   },
 });

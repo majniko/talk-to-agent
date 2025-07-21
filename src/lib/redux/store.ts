@@ -1,8 +1,4 @@
-import {
-  configureStore,
-  createListenerMiddleware,
-  TypedStartListening,
-} from '@reduxjs/toolkit';
+import { configureStore, createListenerMiddleware } from '@reduxjs/toolkit';
 import callAgentModalSlice, {
   callAgentModalInitialState,
   CallAgentModalState,
@@ -18,7 +14,6 @@ export type AppRootState = {
 };
 
 const listenerMiddleware = createListenerMiddleware();
-export type AppStartListening = TypedStartListening<AppRootState, AppDispatch>;
 
 export const makeStore = (initialState?: Partial<AppRootState>) => {
   const preloadedState = {

@@ -1,21 +1,23 @@
 'use client';
 
+import { PhoneCallIcon } from 'lucide-react';
+import clsx from 'clsx';
+import { LOCALIZATION } from 'localization';
+
 import { Modal } from '@components/modal';
 import { Text } from '@components/text';
 import { Button } from '@components/button';
-import { PhoneCallIcon } from 'lucide-react';
-import { LOCALIZATION } from 'localization';
-import { useCallAgentModal } from './use-call-agent-modal';
-import { useCallAgentModalSelector } from '@redux/features/call-agent-modal/hooks';
-import classes from './call-agent-modal.module.scss';
-import clsx from 'clsx';
 import { AudioVisualizer } from '@components/audio-visualizer';
 
+import { useCallAgentModal } from './use-call-agent-modal';
+
+import classes from './call-agent-modal.module.scss';
+
 export const CallAgentModal = () => {
-  const isModalOpen = useCallAgentModalSelector('isModalOpen');
   const {
     isCallActive,
-    isRecording,
+    isModalOpen,
+    isMessagePlaying,
     handleCallButtonClick,
     onClose,
     mediaRecorder,
@@ -25,14 +27,24 @@ export const CallAgentModal = () => {
     <Modal isOpen={isModalOpen} onClose={onClose}>
       <div className={classes.modalContentWrapper}>
         <div className={classes.titleWrapper}>
-          <Text
-            text={LOCALIZATION.en.menu.callAgentModal.title}
-            variant={'bold-large'}
-          />
+          {!isCallActive ? (
+            <Text
+              text={LOCALIZATION.en.menu.callAgentModal.title}
+              variant={'bold-large'}
+            />
+          ) : (
+            <Text
+              text={LOCALIZATION.en.menu.callAgentModal.activeCall}
+              variant={'bold-large'}
+            />
+          )}
         </div>
 
         <div className={classes.visualizerWrapper}>
-          <AudioVisualizer stream={mediaRecorder?.stream} />
+          <AudioVisualizer
+            stream={mediaRecorder?.stream}
+            isMessagePlaying={isMessagePlaying}
+          />
         </div>
 
         <Button

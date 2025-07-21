@@ -9,6 +9,7 @@ export const LOCALIZATION = {
       callAgent: 'Call Jessica',
       callAgentModal: {
         title: 'Call Jessica',
+        activeCall: 'Calling Jessica...',
       },
     },
     home: {
