@@ -27,6 +27,7 @@ If you do not want to install and run this app yourself, just visit https://talk
 
 * Node.js (v18 or later recommended)
 * npm
+* running WebSocket backend server at `ws://localhost:8080` - for example https://github.com/janMoudryD/assignment-demo-be
 
 ### Installation
 
